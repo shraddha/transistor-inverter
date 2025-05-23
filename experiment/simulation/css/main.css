@@ -1,1 +1,513 @@
 /* You CSS goes in here */
+
+/* CMOS Inverter Simulation CSS */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 10px;
+  background-color: #f5f5f5;
+  color: #333;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 0 10px;
+}
+
+.header h1 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+  font-size: 1.8rem;
+}
+
+.header p {
+  color: #7f8c8d;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 20px;
+  gap: 5px;
+}
+
+.tab {
+  padding: 10px 15px;
+  cursor: pointer;
+  background-color: #f8f9fa;
+  border-radius: 5px 5px 0 0;
+  border: 1px solid #ddd;
+  border-bottom: none;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  flex: 1;
+  text-align: center;
+  min-width: 100px;
+}
+
+.tab.active {
+  background-color: #fff;
+  border-bottom: 2px solid #fff;
+  font-weight: bold;
+  color: #3498db;
+}
+
+.tab-content {
+  display: none;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.schematic-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.schematic-image {
+  flex: 1;
+  min-width: 280px;
+  margin-bottom: 20px;
+}
+
+.schematic-image img {
+  width: 100%;
+  height: auto;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.controls {
+  flex: 1;
+  min-width: 280px;
+}
+
+.control-group {
+  margin-bottom: 20px;
+}
+
+.control-label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+input[type="range"] {
+  width: 100%;
+  margin-bottom: 10px;
+  height: 30px;
+  -webkit-appearance: none;
+  background: #f0f0f0;
+  border-radius: 15px;
+  padding: 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #3498db;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.value-display {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.parameter-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.9rem;
+}
+
+.parameter-table th,
+.parameter-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.parameter-table th {
+  background-color: #f2f2f2;
+}
+
+.parameter-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.plot-container {
+  width: 100%;
+  height: 300px;
+  margin: 20px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  min-height: 200px;
+}
+
+.plot-container .js-plotly-plot {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.spice-code {
+  font-family: monospace;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  word-break: break-word;
+}
+
+.spice-code::-webkit-scrollbar {
+  height: 8px;
+}
+
+.spice-code::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.spice-code::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.spice-code::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.btn {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.3s;
+  min-width: 120px;
+  text-align: center;
+  touch-action: manipulation;
+}
+
+.btn:hover {
+  background-color: #2980b9;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.results {
+  margin-top: 30px;
+}
+
+.results h3 {
+  margin-bottom: 15px;
+  color: #2c3e50;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted #777;
+  cursor: help;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  width: 200px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.85rem;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  body {
+    padding: 5px;
+  }
+  
+  .container {
+    padding: 10px;
+  }
+  
+  .header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .tab {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+  
+  .tab-content {
+    padding: 10px;
+  }
+  
+  .schematic-container {
+    flex-direction: column;
+  }
+  
+  .schematic-image,
+  .controls {
+    width: 100%;
+  }
+  
+  .plot-container {
+    height: 250px;
+    margin: 15px 0;
+  }
+  
+  .btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .btn-group {
+    flex-direction: column;
+  }
+  
+  .parameter-table {
+    font-size: 0.85rem;
+  }
+  
+  .parameter-table th,
+  .parameter-table td {
+    padding: 8px;
+  }
+  
+  .spice-code {
+    font-size: 0.8rem;
+    padding: 12px;
+    max-height: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 1.3rem;
+  }
+  
+  .tab {
+    min-width: 80px;
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+  
+  .plot-container {
+    height: 200px;
+    margin: 10px 0;
+  }
+  
+  .spice-code {
+    font-size: 0.75rem;
+    padding: 10px;
+    max-height: 300px;
+  }
+}
+
+/* Add these new styles after the existing CSS */
+
+.interactive-hint {
+  background-color: #f8f9fa;
+  border-left: 4px solid #3498db;
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.interactive-hint h4 {
+  color: #2c3e50;
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+}
+
+.interactive-hint ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.interactive-hint li {
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.parameter-hint {
+  margin-top: 5px;
+  color: #666;
+  font-style: italic;
+}
+
+.parameter-hint small {
+  font-size: 0.85rem;
+}
+
+.parameter-feedback,
+.spice-feedback,
+.results-feedback {
+  margin: 15px 0;
+  padding: 10px 15px;
+  border-radius: 4px;
+  display: none;
+}
+
+.parameter-feedback.success,
+.spice-feedback.success,
+.results-feedback.success {
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+  display: block;
+}
+
+.parameter-feedback.warning,
+.spice-feedback.warning,
+.results-feedback.warning {
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  color: #856404;
+  display: block;
+}
+
+.parameter-feedback.error,
+.spice-feedback.error,
+.results-feedback.error {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+  display: block;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.spice-editor {
+  position: relative;
+}
+
+.spice-code[contenteditable="true"] {
+  outline: none;
+  border: 2px solid #ddd;
+  transition: border-color 0.3s;
+}
+
+.spice-code[contenteditable="true"]:focus {
+  border-color: #3498db;
+}
+
+.spice-controls {
+  margin: 15px 0;
+  display: flex;
+  gap: 10px;
+}
+
+/* Add responsive styles for new elements */
+@media (max-width: 768px) {
+  .interactive-hint {
+    padding: 10px;
+    margin: 15px 0;
+  }
+  
+  .interactive-hint h4 {
+    font-size: 1rem;
+  }
+  
+  .parameter-hint small {
+    font-size: 0.8rem;
+  }
+  
+  .spice-controls {
+    flex-direction: column;
+  }
+  
+  .spice-controls .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .interactive-hint {
+    padding: 8px;
+    margin: 10px 0;
+  }
+  
+  .parameter-feedback,
+  .spice-feedback,
+  .results-feedback {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+}

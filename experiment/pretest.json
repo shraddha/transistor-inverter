@@ -2,38 +2,157 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "What is the logical function performed by a CMOS inverter?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "AND",
+        "b": "OR",
+        "c": "NOT",
+        "d": "XOR"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "AND gates have two or more inputs and output HIGH only when all inputs are HIGH.",
+        "b": "OR gates have two or more inputs and output HIGH when any input is HIGH.",
+        "c": "Correct! A CMOS inverter performs the logical NOT operation, where the output is the complement of the input.",
+        "d": "XOR gates have two or more inputs and output HIGH when an odd number of inputs are HIGH."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Which transistors are used in a standard CMOS inverter?",
+      "answers": {
+        "a": "Only NMOS transistors",
+        "b": "Only PMOS transistors",
+        "c": "Both NMOS and PMOS transistors",
+        "d": "BJT transistors"
+      },
+      "explanations": {
+        "a": "Using only NMOS would create an NMOS inverter with resistive load, not a CMOS inverter.",
+        "b": "Using only PMOS would create a PMOS inverter with resistive load, not a CMOS inverter.",
+        "c": "Correct! A CMOS (Complementary MOS) inverter uses both NMOS and PMOS transistors in a complementary arrangement.",
+        "d": "BJTs (Bipolar Junction Transistors) are used in other logic families like TTL, not in CMOS."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What happens when the input to a CMOS inverter is LOW (0V)?",
+      "answers": {
+        "a": "PMOS is ON, NMOS is OFF, output is HIGH",
+        "b": "PMOS is OFF, NMOS is ON, output is LOW",
+        "c": "Both PMOS and NMOS are ON, output is undefined",
+        "d": "Both PMOS and NMOS are OFF, output is high impedance"
+      },
+      "explanations": {
+        "a": "Correct! When input is LOW, PMOS is ON (conducting), NMOS is OFF (non-conducting), and the output is connected to VDD (HIGH).",
+        "b": "This is what happens when the input is HIGH, not LOW.",
+        "c": "In a properly designed CMOS inverter, PMOS and NMOS are never both ON simultaneously during static operation.",
+        "d": "High impedance state occurs when both transistors are OFF, which doesn't happen in normal operation of a CMOS inverter."
       },
       "correctAnswer": "a",
       "difficulty": "beginner"
     },
     {
-      "question": "This is a Sample Question 2?",
+      "question": "What does SPICE stand for?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "Simple Program for Integrated Circuit Engineering",
+        "b": "Simulation Program with Integrated Circuit Emphasis",
+        "c": "System Performance In Circuit Emulation",
+        "d": "Software Package for Integrated Circuit Evaluation"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "This is not the correct acronym for SPICE.",
+        "b": "Correct! SPICE stands for Simulation Program with Integrated Circuit Emphasis.",
+        "c": "This is not the correct acronym for SPICE.",
+        "d": "This is not the correct acronym for SPICE."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "In a SPICE netlist for a CMOS inverter, what does the parameter 'W' represent for a MOSFET?",
+      "answers": {
+        "a": "Weight of the transistor",
+        "b": "Work function of the gate material",
+        "c": "Width of the transistor channel",
+        "d": "Wafer number of the chip"
+      },
+      "explanations": {
+        "a": "Weight is not a parameter used in SPICE MOSFET models.",
+        "b": "Work function is a material property, not represented by 'W' in SPICE.",
+        "c": "Correct! W represents the width of the transistor channel, which affects the current drive capability of the transistor.",
+        "d": "Wafer number is not a parameter used in SPICE MOSFET models."
       },
       "correctAnswer": "c",
-      "difficulty": "beginner"
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What is the ideal switching threshold (VM) of a symmetrical CMOS inverter with VDD = 5V?",
+      "answers": {
+        "a": "1.25V",
+        "b": "2.5V",
+        "c": "3.75V",
+        "d": "0V"
+      },
+      "explanations": {
+        "a": "This is not the ideal switching threshold. The ideal threshold is VDD/2.",
+        "b": "Correct! The ideal switching threshold (VM) of a symmetrical CMOS inverter is VDD/2, which is 2.5V when VDD = 5V.",
+        "c": "This is not the ideal switching threshold. The ideal threshold is VDD/2.",
+        "d": "0V would make the inverter always output HIGH, which is not correct."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Which SPICE command is used to perform a DC sweep analysis?",
+      "answers": {
+        "a": ".DC",
+        "b": ".AC",
+        "c": ".TRAN",
+        "d": ".OP"
+      },
+      "explanations": {
+        "a": "Correct! The .DC command is used to perform a DC sweep analysis in SPICE.",
+        "b": "The .AC command is used for AC sweep analysis, not DC.",
+        "c": "The .TRAN command is used for transient analysis, not DC sweep.",
+        "d": "The .OP command is used for operating point analysis, not DC sweep."
+      },
+      "correctAnswer": "a",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "To measure the propagation delay of a CMOS inverter, which type of SPICE analysis would you use?",
+      "answers": {
+        "a": "DC analysis",
+        "b": "AC analysis",
+        "c": "Transient analysis",
+        "d": "Noise analysis"
+      },
+      "explanations": {
+        "a": "DC analysis is used for static characteristics like VTC, not for timing measurements.",
+        "b": "AC analysis is used for frequency response, not for timing measurements in digital circuits.",
+        "c": "Correct! Transient analysis (.TRAN) is used to measure time-dependent behavior like propagation delay.",
+        "d": "Noise analysis is used for analyzing noise characteristics, not for timing measurements."
+      },
+      "correctAnswer": "c",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "What is the primary factor that determines the rise time of a CMOS inverter output?",
+      "answers": {
+        "a": "PMOS transistor width",
+        "b": "NMOS transistor width",
+        "c": "Input signal frequency",
+        "d": "Load capacitance"
+      },
+      "explanations": {
+        "a": "Correct! The PMOS transistor width primarily determines the rise time as it controls how quickly the output can be pulled up to VDD.",
+        "b": "NMOS width affects fall time, not rise time.",
+        "c": "Input frequency affects switching rate but not the rise time of individual transitions.",
+        "d": "While load capacitance affects both rise and fall times, the PMOS width is the primary factor for rise time."
+      },
+      "correctAnswer": "a",
+      "difficulty": "advanced"
     }
   ]
 }

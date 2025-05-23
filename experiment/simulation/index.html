@@ -1,13 +1,206 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>CMOS Inverter SPICE Simulation</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Add CSS at the head of HTML file -->
-    <link rel="stylesheet" href="./css/main.css">
+	<link rel="stylesheet" href="./css/main.css">
+	<!-- Plotly.js for plotting - using specific version to avoid warning -->
+	<script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
 </head>
 <body>
-		<!-- Your code goes here-->
+	<div class="container">
+		<div class="header">
+			<h1>CMOS Inverter SPICE Simulation</h1>
+			<p>Design and analyze a transistor-level CMOS inverter using SPICE</p>
+		</div>
+
+		<div class="tabs">
+			<div class="tab active" data-tab="schematic">Schematic</div>
+			<div class="tab" data-tab="parameters">Parameters</div>
+			<div class="tab" data-tab="spice-code">SPICE Code</div>
+			<div class="tab" data-tab="results">Results</div>
+		</div>
+
+		<div id="schematic" class="tab-content active">
+			<h2>CMOS Inverter Schematic</h2>
+			<div class="schematic-container">
+				<div class="schematic-image">
+					<img src="images/cmos_inverter_schematic.png" alt="CMOS Inverter Schematic" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'300\' viewBox=\'0 0 400 300\'><rect width=\'100%\' height=\'100%\' fill=\'%23f2f2f2\'/><text x=\'50%\' y=\'50%\' font-family=\'Arial\' font-size=\'14\' fill=\'%23333\' text-anchor=\'middle\'>CMOS Inverter Schematic Placeholder</text><text x=\'50%\' y=\'65%\' font-family=\'Arial\' font-size=\'12\' fill=\'%23666\' text-anchor=\'middle\'>Image not found. Please add an image named cmos_inverter_schematic.png to the images folder.</text></svg>'">
+				</div>
+				<div class="controls">
+					<h3>Circuit Description</h3>
+					<p>The CMOS inverter consists of:</p>
+					<ul>
+						<li>PMOS transistor (M1) connected between VDD and output</li>
+						<li>NMOS transistor (M2) connected between output and GND</li>
+						<li>Common input node connected to both transistor gates</li>
+					</ul>
+					<p>When input is LOW, PMOS is ON and NMOS is OFF, making output HIGH.</p>
+					<p>When input is HIGH, PMOS is OFF and NMOS is ON, making output LOW.</p>
+					
+					<div class="interactive-hint">
+						<h4>Learning Objectives:</h4>
+						<ul>
+							<li>Understand the relationship between transistor sizes and switching characteristics</li>
+							<li>Learn how to optimize inverter performance through parameter adjustment</li>
+							<li>Analyze the impact of supply voltage on circuit behavior</li>
+							<li>Learn SPICE syntax and circuit description through hands-on editing</li>
+							<li>Develop skills in writing and validating SPICE netlists</li>
+							<li>Understand common SPICE errors and how to fix them</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="parameters" class="tab-content">
+			<h2>Circuit Parameters</h2>
+			<div class="parameter-controls">
+				<div class="control-group">
+					<label class="control-label" for="vdd-slider">Supply Voltage (VDD)</label>
+					<input type="range" id="vdd-slider" min="1" max="5" step="0.1" value="5" data-default="5" data-unit="V">
+					<div class="value-display">
+						<span>1V</span>
+						<span id="vdd-slider-value">5V</span>
+						<span>5V</span>
+					</div>
+					<div class="parameter-hint" id="vdd-hint">
+						<small>Hint: Higher VDD increases power consumption but improves noise margins</small>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="pmos-width-slider">PMOS Width (W<sub>p</sub>)</label>
+					<input type="range" id="pmos-width-slider" min="0.5" max="10" step="0.1" value="2.0" data-default="2.0" data-unit="μm">
+					<div class="value-display">
+						<span>0.5μm</span>
+						<span id="pmos-width-slider-value">2.0μm</span>
+						<span>10.0μm</span>
+					</div>
+					<div class="parameter-hint" id="pmos-hint">
+						<small>Hint: PMOS width affects rise time and high-to-low transition</small>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="nmos-width-slider">NMOS Width (W<sub>n</sub>)</label>
+					<input type="range" id="nmos-width-slider" min="0.5" max="10" step="0.1" value="1.0" data-default="1.0" data-unit="μm">
+					<div class="value-display">
+						<span>0.5μm</span>
+						<span id="nmos-width-slider-value">1.0μm</span>
+						<span>10.0μm</span>
+					</div>
+					<div class="parameter-hint" id="nmos-hint">
+						<small>Hint: NMOS width affects fall time and low-to-high transition</small>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="mosfet-length-slider">MOSFET Length (L)</label>
+					<input type="range" id="mosfet-length-slider" min="0.1" max="1.0" step="0.01" value="0.18" data-default="0.18" data-unit="μm">
+					<div class="value-display">
+						<span>0.1μm</span>
+						<span id="mosfet-length-slider-value">0.18μm</span>
+						<span>1.0μm</span>
+					</div>
+					<div class="parameter-hint" id="length-hint">
+						<small>Hint: Channel length affects current drive and switching speed</small>
+					</div>
+				</div>
+
+				<div class="btn-group">
+					<button id="reset-params" class="btn">Reset Parameters</button>
+					<button id="check-params" class="btn btn-secondary">Check Parameters</button>
+				</div>
+
+				<div class="parameter-feedback" id="parameter-feedback">
+					<!-- Feedback messages will be inserted here -->
+				</div>
+			</div>
+
+			<div class="parameter-note">
+				<h3>Note on W/L Ratio</h3>
+				<p>The typical W<sub>p</sub>/W<sub>n</sub> ratio for a symmetrical CMOS inverter is approximately 2:1 to compensate for the lower hole mobility in PMOS compared to electron mobility in NMOS.</p>
+			</div>
+		</div>
+
+		<div id="spice-code" class="tab-content">
+			<h2>SPICE Netlist</h2>
+			<div class="spice-editor">
+				<p>This is the SPICE netlist for the CMOS inverter circuit with the current parameters:</p>
+				<pre class="spice-code" id="spice-code-text" contenteditable="true" spellcheck="false">
+* CMOS Inverter SPICE Netlist
+
+* Power Supply
+VDD vdd 0 DC 5V
+
+* Input Voltage Source (for DC sweep)
+VIN in 0 DC 0V
+
+* PMOS Transistor
+M1 out in vdd vdd PMOS W=2.0u L=0.18u
+
+* NMOS Transistor
+M2 out in 0 0 NMOS W=1.0u L=0.18u
+
+* MOSFET Model Parameters
+.MODEL NMOS NMOS (LEVEL=3 TOX=3.5E-9 VTO=0.5 GAMMA=0.2 PHI=0.6)
+.MODEL PMOS PMOS (LEVEL=3 TOX=3.5E-9 VTO=-0.5 GAMMA=0.2 PHI=0.6)
+
+* Analysis Commands
+.DC VIN 0 5 0.01
+.PRINT DC V(in) V(out)
+
+.END
+				</pre>
+				<div class="spice-controls">
+					<button id="validate-spice" class="btn">Validate SPICE Code</button>
+					<button id="restore-spice" class="btn btn-secondary">Restore Default</button>
+				</div>
+				<div class="spice-feedback" id="spice-feedback">
+					<!-- SPICE validation feedback will be inserted here -->
+				</div>
+			</div>
+
+			<div class="btn-group">
+				<button id="run-dc-sim" class="btn">Run DC Analysis</button>
+				<button id="run-transient-sim" class="btn">Run Transient Analysis</button>
+			</div>
+
+			<div class="spice-info">
+				<h3>SPICE Commands</h3>
+				<ul>
+					<li><strong>.DC</strong> - Performs DC sweep analysis</li>
+					<li><strong>.TRAN</strong> - Performs transient analysis</li>
+					<li><strong>.MODEL</strong> - Defines MOSFET model parameters</li>
+					<li><strong>.PRINT</strong> - Specifies output variables</li>
+				</ul>
+			</div>
+		</div>
+
+		<div id="results-section" class="tab-content" style="display: none;">
+			<h2>Simulation Results</h2>
+			
+			<div id="dc-results"></div>
+			
+			<div id="transient-results"></div>
+			
+			<div class="results-feedback" id="results-feedback">
+				<!-- Results analysis feedback will be inserted here -->
+			</div>
+			
+			<div class="results-info">
+				<h3>Understanding the Results</h3>
+				<p>The DC analysis shows the Voltage Transfer Characteristic (VTC) of the inverter, which plots output voltage vs. input voltage.</p>
+				<p>The transient analysis shows how the output responds to changes in the input over time, allowing measurement of propagation delays.</p>
+				<p>By varying parameters like transistor widths, you can observe how they affect the inverter's performance characteristics.</p>
+			</div>
+		</div>
+	</div>
 
 	<!-- Add JS at the bottom of HTML file --> 
-        <script src="./js/main.js"></script>
+	<script src="./js/main.js"></script>
 </body>
 </html>

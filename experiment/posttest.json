@@ -2,38 +2,157 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "What is the typical ratio of PMOS to NMOS width (Wp/Wn) in a CMOS inverter to achieve symmetric VTC?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "1:1",
+        "b": "2:1",
+        "c": "3:1",
+        "d": "4:1"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "A 1:1 ratio would result in an asymmetric VTC because PMOS has lower carrier mobility than NMOS.",
+        "b": "Correct! A 2:1 ratio (PMOS width to NMOS width) is typically used to compensate for the lower hole mobility in PMOS compared to electron mobility in NMOS.",
+        "c": "This ratio is higher than typically needed for most processes.",
+        "d": "This ratio is higher than typically needed for most processes."
       },
-      "correctAnswer": "a",
+      "correctAnswer": "b",
       "difficulty": "beginner"
     },
     {
-      "question": "This is a Sample Question 2?",
+      "question": "When analyzing a CMOS inverter VTC curve, which region corresponds to both PMOS and NMOS operating in saturation mode?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "Region I (Input ≈ 0V)",
+        "b": "Region II (Input increasing from 0)",
+        "c": "Region III (Input near VM)",
+        "d": "Region V (Input ≈ VDD)"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "In Region I, PMOS is in linear region and NMOS is in cutoff.",
+        "b": "In Region II, PMOS is in saturation and NMOS is in cutoff or just entering saturation.",
+        "c": "Correct! In Region III, both transistors are in saturation mode. This is the transition region where the output changes rapidly with small changes in input voltage.",
+        "d": "In Region V, NMOS is in linear region and PMOS is in cutoff."
       },
       "correctAnswer": "c",
       "difficulty": "beginner"
+    },
+    {
+      "question": "Which of the following factors does NOT affect the power consumption of a CMOS inverter?",
+      "answers": {
+        "a": "Supply voltage (VDD)",
+        "b": "Switching frequency",
+        "c": "Load capacitance",
+        "d": "The logical function being performed"
+      },
+      "explanations": {
+        "a": "Supply voltage (VDD) directly affects both dynamic and static power consumption. P = CV²f for dynamic power.",
+        "b": "Switching frequency directly affects dynamic power consumption. P = CV²f.",
+        "c": "Load capacitance directly affects dynamic power consumption. P = CV²f.",
+        "d": "Correct! The logical function being performed (NOT in this case) doesn't directly affect power consumption. Power depends on circuit parameters, not the logical operation."
+      },
+      "correctAnswer": "d",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "In a SPICE netlist, which of the following is the correct syntax to define a PMOS transistor?",
+      "answers": {
+        "a": "M1 drain gate source bulk PMOS W=2u L=0.18u",
+        "b": "Q1 drain gate source bulk PMOS W=2u L=0.18u",
+        "c": "R1 drain source PMOS W=2u L=0.18u",
+        "d": "C1 drain source PMOS W=2u L=0.18u"
+      },
+      "explanations": {
+        "a": "Correct! MOSFET devices in SPICE are defined with 'M' followed by the device number, then the drain, gate, source, and bulk nodes, followed by the model name and parameters.",
+        "b": "The prefix 'Q' is used for BJT (Bipolar Junction Transistors), not MOSFETs.",
+        "c": "The prefix 'R' is used for resistors, not MOSFETs.",
+        "d": "The prefix 'C' is used for capacitors, not MOSFETs."
+      },
+      "correctAnswer": "a",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What is the primary cause of propagation delay in a CMOS inverter?",
+      "answers": {
+        "a": "Resistance of the transistors",
+        "b": "Charging and discharging of load capacitance",
+        "c": "Carrier recombination in the channel",
+        "d": "Thermal noise in the circuit"
+      },
+      "explanations": {
+        "a": "While transistor resistance contributes to delay, it's not the primary cause.",
+        "b": "Correct! The primary cause of propagation delay is the time required to charge and discharge the load capacitance through the MOS transistors.",
+        "c": "Carrier recombination is not a significant factor in CMOS propagation delay.",
+        "d": "Thermal noise affects signal integrity but is not the primary cause of propagation delay."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Which of the following SPICE analysis types would be most appropriate for determining the noise margins of a CMOS inverter?",
+      "answers": {
+        "a": "Transient analysis (.TRAN)",
+        "b": "DC sweep analysis (.DC)",
+        "c": "AC analysis (.AC)",
+        "d": "Monte Carlo analysis (.MC)"
+      },
+      "explanations": {
+        "a": "Transient analysis is used for time-domain behavior, not for calculating static parameters like noise margins.",
+        "b": "Correct! DC sweep analysis is used to generate the VTC curve from which noise margins (NML and NMH) are calculated.",
+        "c": "AC analysis is used for small-signal frequency response, not for calculating static parameters like noise margins.",
+        "d": "Monte Carlo analysis is used for statistical variation analysis, not specifically for noise margins."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What would be the effect of decreasing the PMOS width in a CMOS inverter while keeping the NMOS width constant?",
+      "answers": {
+        "a": "The switching threshold would shift higher (toward VDD)",
+        "b": "The switching threshold would shift lower (toward GND)",
+        "c": "The switching threshold would remain unchanged",
+        "d": "The inverter would stop functioning completely"
+      },
+      "explanations": {
+        "a": "This is incorrect. Decreasing PMOS width reduces its current drive capability, making it harder to pull the output HIGH.",
+        "b": "Correct! Decreasing the PMOS width reduces its current drive capability relative to the NMOS. This shifts the switching threshold lower (toward GND) because the NMOS becomes relatively stronger.",
+        "c": "The switching threshold is affected by the relative strength of PMOS and NMOS, so it would change when PMOS width is reduced.",
+        "d": "The inverter would still function, just with modified characteristics, not complete failure."
+      },
+      "correctAnswer": "b",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "In a SPICE simulation of a CMOS inverter, what parameter is <i>not</i> directly provided by a DC sweep analysis?",
+      "answers": {
+        "a": "Switching threshold (VM)",
+        "b": "Output voltage levels (VOH and VOL)",
+        "c": "Propagation delay",
+        "d": "Noise margins (NMH and NML)"
+      },
+      "explanations": {
+        "a": "Switching threshold can be directly obtained from the VTC curve produced by DC sweep analysis.",
+        "b": "Output voltage levels (VOH and VOL) can be directly read from the VTC curve.",
+        "c": "Correct! Propagation delay is a time-domain parameter that requires transient analysis (.TRAN), not DC sweep analysis.",
+        "d": "Noise margins can be calculated from the VTC curve obtained from DC sweep analysis."
+      },
+      "correctAnswer": "c",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "What is the relationship between the rise time (tr) and fall time (tf) in a symmetrical CMOS inverter with equal PMOS and NMOS widths?",
+      "answers": {
+        "a": "tr = tf",
+        "b": "tr > tf",
+        "c": "tr < tf",
+        "d": "tr and tf are independent of transistor widths"
+      },
+      "explanations": {
+        "a": "This would only be true if PMOS and NMOS had equal mobility, which they don't.",
+        "b": "Correct! Due to lower hole mobility in PMOS compared to electron mobility in NMOS, rise time is typically longer than fall time when transistor widths are equal.",
+        "c": "This is incorrect. PMOS has lower mobility than NMOS, so rise time is longer.",
+        "d": "Transistor widths directly affect rise and fall times through their current drive capability."
+      },
+      "correctAnswer": "b",
+      "difficulty": "advanced"
     }
   ]
 }
